@@ -6,15 +6,16 @@ class Status{
   Status(){
   }
   void display(){
+    fill(255);
     rect(720,400,350,110,20,20,20,20);//外框
     fill(0);
     textFont(enFont,30);
     text(name,750,450);//name
     textFont(enFont,24);
-    text("HP",750,490);
+    text("HP",750,490);//HP
     int count = 0;
     int x = 800;
-    while(count < 3){//lost HP
+    while(count < 3){//剩餘HP
       if(count < HP){
         fill(255);
       }else{
