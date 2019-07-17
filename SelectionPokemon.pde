@@ -22,7 +22,7 @@ void init(){
   status.setName("Bitify");
   stage = new Stage(5);
   String[] answers = {"Jupyter Notebook","Spyder","IPython","python.org"};
-  stage.questionList.add(new Question("以下那一個 Python 開發工具比較方便幫助你除錯？\n(Which tool can help you debugging easily?)",answers,1));
+  stage.questionList.add(new Question("以下那一個 Python 開發工具比較方便幫助你除錯？\n(Which tool can help you debugging easily?)",answers,2));
 }
 void mousePressed(){
   stage.questionList.get(stage.index).mousePressed();

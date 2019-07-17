@@ -23,24 +23,24 @@ class Question{
         fill(255);
         switch(count){
           case 0:
-            rect(30,550,510,70);
+            rect(40,560,490,50);
             fill(0);
-            text(answerList.get(0),285-textWidth(answerList.get(0))/2,595);//285 = 30+510/2
+            text(answerList.get(0),285-textWidth(answerList.get(0))/2,595);//285 = 40+490/2
             break;
           case 1:
-            rect(540,550,510,70);
+            rect(550,560,490,50);
             fill(0);
-            text(answerList.get(1),795-textWidth(answerList.get(1))/2,595);//795 = 540+510/2
+            text(answerList.get(1),795-textWidth(answerList.get(1))/2,595);//795 = 550+490/2
             break;
           case 2:
-            rect(30,620,510,70);
+            rect(40,630,490,50);
             fill(0);
-            text(answerList.get(2),285-textWidth(answerList.get(2))/2,665);//285 = 30+510/2
+            text(answerList.get(2),285-textWidth(answerList.get(2))/2,665);//285 = 40+490/2
             break;
           case 3:
-            rect(540,620,510,70);
+            rect(550,630,490,50);
             fill(0);
-            text(answerList.get(3),795-textWidth(answerList.get(3))/2,665);//795 = 540+510/2
+            text(answerList.get(3),795-textWidth(answerList.get(3))/2,665);//795 = 550+490/2
             break;
           default:
             println("Too many answers.");
@@ -50,7 +50,31 @@ class Question{
   }
   void mousePressed(){
     if(mouseX > 0 && mouseX < width && mouseY > 520 && mouseY < 720){
-      isStartAnswer = true;
+      if(isStartAnswer){
+        int answer = getTouchAnswerArea();
+        if(answer != -1){
+          if(answer == correct-1){
+            println("correct");
+          }else{
+            answerList.remove(answerList.get(answer));
+            println("wrong");
+          }
+        }
+      }else{
+        isStartAnswer = true;
+      }
     }
+  }
+  int getTouchAnswerArea(){
+    if(mouseX > 40 && mouseX < 530 && mouseY > 560 && mouseY < 610){
+      return 0;
+    }else if(mouseX > 550 && mouseX < 1040 && mouseY > 560 && mouseY < 610){
+      return 1;
+    }else if(mouseX > 40 && mouseX < 530 && mouseY > 630 && mouseY < 680){
+      return 2;
+    }else if(mouseX > 550 && mouseX < 1040 && mouseY > 630 && mouseY < 680){
+      return 3;
+    }
+    return -1;
   }
 }
