@@ -21,6 +21,12 @@ class Stage{
       y -= 400/(num-1);
       count += 1;
     }
-    questionList.get(index).display();//當前關卡
+    if(index >= questionList.size() || status.HP <= 0){//遊戲結束條件
+      fill(0);
+      textFont(chFont,60);
+      text("Game Over.",width/2-textWidth("Game Over.")/2,650);
+    }else{
+      questionList.get(index).display();//當前關卡
+    }
   }
 }

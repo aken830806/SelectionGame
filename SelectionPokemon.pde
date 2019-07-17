@@ -12,6 +12,7 @@ void setup(){
 void draw(){
   fill(255);
   rect(0,520,width,200);//下方大框
+  fill(235,240,242);
   rect(30,550,1020,140);//下方內框
   
   stage.display();

@@ -1,14 +1,33 @@
 class Question{
   String content;
   Boolean isStartAnswer = false;//是否開始作答
-  ArrayList<String> answerList;
+  ArrayList<Answer> answerList;
   int correct;//正確答案代號
+  final int ANSWER_W = 490;
+  final int ANSWER_H = 50;
   
   Question(String content,String[] answers,int correct){
     this.content = content;
-    this.answerList = new ArrayList<String>();
+    this.answerList = new ArrayList<Answer>();
+    int count = 0;
     for(String answer:answers){//array to arrayList
-      answerList.add(answer);
+      switch(count){
+        case 0:
+          answerList.add(new Answer(40,560,answer));
+          break;
+        case 1:
+          answerList.add(new Answer(550,560,answer));
+          break;
+        case 2:
+          answerList.add(new Answer(40,630,answer));
+          break;
+        case 3:
+          answerList.add(new Answer(550,630,answer));
+          break;
+        default:
+          println("Too many answers.");
+      }
+      count += 1;
     }
     this.correct = correct;
   }
@@ -19,31 +38,12 @@ class Question{
       text(content,50,600);
     }else{//顯示答案
       textFont(chFont,30);
-      for(int count=0;count<answerList.size();count++){
-        fill(255);
-        switch(count){
-          case 0:
-            rect(40,560,490,50);
-            fill(0);
-            text(answerList.get(0),285-textWidth(answerList.get(0))/2,595);//285 = 40+490/2
-            break;
-          case 1:
-            rect(550,560,490,50);
-            fill(0);
-            text(answerList.get(1),795-textWidth(answerList.get(1))/2,595);//795 = 550+490/2
-            break;
-          case 2:
-            rect(40,630,490,50);
-            fill(0);
-            text(answerList.get(2),285-textWidth(answerList.get(2))/2,665);//285 = 40+490/2
-            break;
-          case 3:
-            rect(550,630,490,50);
-            fill(0);
-            text(answerList.get(3),795-textWidth(answerList.get(3))/2,665);//795 = 550+490/2
-            break;
-          default:
-            println("Too many answers.");
+      for(Answer ans:answerList){
+        if(!ans.wrong){
+          fill(255);
+          rect(ans.x,ans.y,ANSWER_W,ANSWER_H);
+          fill(0);
+          text(ans.content,ans.x+ANSWER_W/2-textWidth(ans.content)/2,ans.y+35);
         }
       }
     }
@@ -54,10 +54,10 @@ class Question{
         int answer = getTouchAnswerArea();
         if(answer != -1){
           if(answer == correct-1){
-            println("correct");
+            stage.index += 1;
           }else{
-            answerList.remove(answerList.get(answer));
-            println("wrong");
+            answerList.get(answer).wrong = true;
+            status.HP -= 1;
           }
         }
       }else{
@@ -66,13 +66,13 @@ class Question{
     }
   }
   int getTouchAnswerArea(){
-    if(mouseX > 40 && mouseX < 530 && mouseY > 560 && mouseY < 610){
+    if(mouseX > 40 && mouseX < 40+ANSWER_W && mouseY > 560 && mouseY < 560+ANSWER_H){
       return 0;
-    }else if(mouseX > 550 && mouseX < 1040 && mouseY > 560 && mouseY < 610){
+    }else if(mouseX > 550 && mouseX < 550+ANSWER_W && mouseY > 560 && mouseY < 560+ANSWER_H){
       return 1;
-    }else if(mouseX > 40 && mouseX < 530 && mouseY > 630 && mouseY < 680){
+    }else if(mouseX > 40 && mouseX < 40+ANSWER_W && mouseY > 630 && mouseY < 630+ANSWER_H){
       return 2;
-    }else if(mouseX > 550 && mouseX < 1040 && mouseY > 630 && mouseY < 680){
+    }else if(mouseX > 550 && mouseX < 550+ANSWER_W && mouseY > 630 && mouseY < 630+ANSWER_H){
       return 3;
     }
     return -1;

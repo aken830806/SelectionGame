@@ -28,6 +28,7 @@ class Status{
     count = 0;//button
     x = 1000;
     while(count < 2){
+      fill(255);
       ellipse(x,485,30,30);
       x += 40;
       count += 1;
