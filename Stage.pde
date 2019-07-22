@@ -3,9 +3,9 @@ class Stage{
   int index = 0;
   ArrayList<Question> questionList;
   
-  Stage(int num){
-    this.num = num;
-    questionList = new ArrayList<Question>();
+  Stage(ArrayList<Question> questionList){
+    this.num = questionList.size();
+    this.questionList = questionList;
   }
   void display(){
     line(55,55,55,455);

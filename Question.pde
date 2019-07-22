@@ -3,26 +3,32 @@ class Question{
   Boolean isStartAnswer = false;//是否開始作答
   ArrayList<Answer> answerList;
   int correct;//正確答案代號
-  final int ANSWER_W = 490;
-  final int ANSWER_H = 50;
+  final int ANSWER_W = 490;//答案框寬度
+  final int ANSWER_H = 50;//答案框高度
   
   Question(String content,String[] answers,int correct){
     this.content = content;
     this.answerList = new ArrayList<Answer>();
     int count = 0;
     for(String answer:answers){//array to arrayList
+      int fontSize = 30;
+      textFont(chFont,fontSize);
+      while(textWidth(answer) > ANSWER_W){//計算適合大小
+        fontSize -= 1;
+        textFont(chFont,fontSize);
+      }
       switch(count){
         case 0:
-          answerList.add(new Answer(40,560,answer));
+          answerList.add(new Answer(40,560,answer,fontSize));
           break;
         case 1:
-          answerList.add(new Answer(550,560,answer));
+          answerList.add(new Answer(550,560,answer,fontSize));
           break;
         case 2:
-          answerList.add(new Answer(40,630,answer));
+          answerList.add(new Answer(40,630,answer,fontSize));
           break;
         case 3:
-          answerList.add(new Answer(550,630,answer));
+          answerList.add(new Answer(550,630,answer,fontSize));
           break;
         default:
           println("Too many answers.");
@@ -43,6 +49,7 @@ class Question{
           fill(255);
           rect(ans.x,ans.y,ANSWER_W,ANSWER_H);
           fill(0);
+          textFont(chFont,ans.fontSize);
           text(ans.content,ans.x+ANSWER_W/2-textWidth(ans.content)/2,ans.y+35);
         }
       }
