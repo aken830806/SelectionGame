@@ -20,7 +20,7 @@ void draw(){
 }
 void init(){
   status = new Status();
-  status.setName("Bitify");
+  status.setName("Ash");
   ArrayList<Question> questionList = new ArrayList<Question>();
   String[] answers;
   answers = new String[]{"Jupyter Notebook","Spyder","IPython","python.org"};
@@ -32,5 +32,7 @@ void init(){
   stage = new Stage(questionList);
 }
 void mousePressed(){
-  stage.questionList.get(stage.index).mousePressed();
+  if(stage.index < stage.questionList.size()){
+    stage.questionList.get(stage.index).mousePressed();
+  }
 }

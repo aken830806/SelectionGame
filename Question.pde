@@ -71,6 +71,9 @@ class Question{
         isStartAnswer = true;
       }
     }
+    if(status.backButton.isOver()){
+      isStartAnswer = false;
+    }
   }
   int getTouchAnswerArea(){
     if(mouseX > 40 && mouseX < 40+ANSWER_W && mouseY > 560 && mouseY < 560+ANSWER_H){
