@@ -23,4 +23,11 @@ class Answer{
     textFont(chFont,fontSize);
     text(content,x+ANSWER_W/2-textWidth(content)/2,y+15);
   }
+  boolean mousePressed(){
+    if(mouseX > x && mouseX < x+ANSWER_W && mouseY > y && mouseY < y+ANSWER_H && !clicked){
+      clicked = true;
+      return true;
+    }
+    return false;
+  }
 }

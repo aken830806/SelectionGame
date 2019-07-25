@@ -57,30 +57,19 @@ class Question{
     }
   }
   void mousePressed(){
-    if(mouseX > 0 && mouseX < width && mouseY > 520 && mouseY < 720){
-      if(isStartAnswer){
-        int answer = getTouchAnswerArea();
-        if(answer != -1){
-          answerList.get(answer).clicked = true;
-          if(answer == correct-1){
+    if(isStartAnswer){
+      int count = 1;
+      for(Answer answer:answerList){
+        if(answer.mousePressed()){
+          if(count == correct){
             monster.dead();
           }else{
             status.HP -= 1;
           }
+          break;
         }
+        count += 1;
       }
     }
-  }
-  int getTouchAnswerArea(){
-    if(mouseX > 40 && mouseX < 40+ANSWER_W && mouseY > 560 && mouseY < 560+ANSWER_H){
-      return 0;
-    }else if(mouseX > 550 && mouseX < 550+ANSWER_W && mouseY > 560 && mouseY < 560+ANSWER_H){
-      return 1;
-    }else if(mouseX > 40 && mouseX < 40+ANSWER_W && mouseY > 630 && mouseY < 630+ANSWER_H){
-      return 2;
-    }else if(mouseX > 550 && mouseX < 550+ANSWER_W && mouseY > 630 && mouseY < 630+ANSWER_H){
-      return 3;
-    }
-    return -1;
   }
 }
