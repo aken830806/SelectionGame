@@ -5,6 +5,7 @@ class Question{
   int correct;//正確答案代號
   final int ANSWER_W = 490;//答案框寬度
   final int ANSWER_H = 50;//答案框高度
+  float answerDisplayCountDown = 1;
   
   Question(String content,String[] answers,int correct){
     this.content = content;
@@ -38,20 +39,28 @@ class Question{
     this.correct = correct;
   }
   void display(){
-    if(!isStartAnswer){//顯示題目
-      fill(0);
-      textFont(chFont,30);
-      text(content,50,600);
-    }else{//顯示答案
+    if(answerDisplayCountDown > 0){
+      answerDisplayCountDown -= (float)1/60;// every 1/60 second.
+    }else if(!isStartAnswer){
+      isStartAnswer = true;
+    }
+    fill(255);//顯示題目
+    rect(85,40,550,150);
+    fill(0);
+    textFont(chFont,20);
+    text(content,100,70);
+    if(isStartAnswer){//顯示答案
       textFont(chFont,30);
       for(Answer ans:answerList){
-        if(!ans.wrong){
+        if(ans.wrong){//答錯變灰
+          fill(225);
+        }else{
           fill(255);
-          rect(ans.x,ans.y,ANSWER_W,ANSWER_H);
-          fill(0);
-          textFont(chFont,ans.fontSize);
-          text(ans.content,ans.x+ANSWER_W/2-textWidth(ans.content)/2,ans.y+35);
         }
+        rect(ans.x,ans.y,ANSWER_W,ANSWER_H);
+        fill(0);
+        textFont(chFont,ans.fontSize);
+        text(ans.content,ans.x+ANSWER_W/2-textWidth(ans.content)/2,ans.y+15);
       }
     }
   }
@@ -67,12 +76,7 @@ class Question{
             status.HP -= 1;
           }
         }
-      }else{
-        isStartAnswer = true;
       }
-    }
-    if(status.backButton.isOver()){
-      isStartAnswer = false;
     }
   }
   int getTouchAnswerArea(){

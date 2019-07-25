@@ -2,10 +2,11 @@ class Status{
   String name;
   int HP = 3;
   ArrayList<Question> questionList;
-  Button backButton;
+  Button button1,button2;
   
   Status(){
-    backButton = new Button(1000,485,30,255,0);
+    button1 = new Button(1000,485,30,255,0);
+    button2 = new Button(1040,485,30,255,0);
   }
   void display(){
     fill(255);
@@ -27,9 +28,8 @@ class Status{
       x += 40;
       count += 1;
     }
-    backButton.display();//返回題目按鈕
-    fill(255);//no use button
-    ellipse(1040,485,30,30);
+    button1.display();
+    button2.display();
   }
   void setName(String name){
     this.name = name;

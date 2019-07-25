@@ -1,6 +1,5 @@
 class Answer{
-  int x;
-  int y;
+  int x,y;
   String content;
   boolean wrong = false;
   int fontSize;
