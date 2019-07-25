@@ -1,8 +1,7 @@
-PFont enFont;
-PFont chFont;
+PFont enFont,chFont;
 Status status;
 Stage stage;
-Role player,monster;
+Role player;
 
 void setup(){
   size(1080,720);
@@ -11,8 +10,10 @@ void setup(){
   init();
 }
 void draw(){
+  fill(225);//背景
+  rect(0,0,width,height);
+  
   player.display();
-  monster.display();
   
   fill(255);
   rect(0,520,width,200);//下方大框
@@ -34,10 +35,12 @@ void init(){
   answers = new String[]{"可到 Python.org 的官網下載安裝\n(You can download and install from Python.org) ","具備快速鍵，方便編寫程式\n(It has some short-cut key for fast and convenient coding)","可以切換不同的佈景模式\n(Can change the theme mode)","可透過 Anaconda 來安裝與啟動\n(You can download and install from Anaconda)"};
   questionList.add(new Question("關於 Spyder 以下何者錯誤？\n(About Spyder, what is not correct?)",answers,1));
   stage = new Stage(questionList);
-  player = new Role(50,270);
-  monster = new Role(700,40);
+  player = new Role(-330,270,50,270);
 }
 void mousePressed(){
+  if(status.resetButton.isOver()){//reset
+    init();
+  }
   if(stage.index < stage.questionList.size()){
     stage.questionList.get(stage.index).mousePressed();
   }

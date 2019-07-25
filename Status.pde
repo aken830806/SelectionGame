@@ -2,10 +2,10 @@ class Status{
   String name;
   int HP = 3;
   ArrayList<Question> questionList;
-  Button button1,button2;
+  Button resetButton,button2;
   
   Status(){
-    button1 = new Button(1000,485,30,255,0);
+    resetButton = new Button(1000,485,30,255,0);
     button2 = new Button(1040,485,30,255,0);
   }
   void display(){
@@ -28,7 +28,7 @@ class Status{
       x += 40;
       count += 1;
     }
-    button1.display();
+    resetButton.display();
     button2.display();
   }
   void setName(String name){

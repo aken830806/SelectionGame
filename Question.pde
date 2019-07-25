@@ -3,9 +3,7 @@ class Question{
   Boolean isStartAnswer = false;//是否開始作答
   ArrayList<Answer> answerList;
   int correct;//正確答案代號
-  final int ANSWER_W = 490;//答案框寬度
-  final int ANSWER_H = 50;//答案框高度
-  float answerDisplayCountDown = 1;
+  Role monster;
   
   Question(String content,String[] answers,int correct){
     this.content = content;
@@ -37,30 +35,24 @@ class Question{
       count += 1;
     }
     this.correct = correct;
+    monster = new Role(1080,40,700,340);
   }
   void display(){
-    if(answerDisplayCountDown > 0){
-      answerDisplayCountDown -= (float)1/60;// every 1/60 second.
-    }else if(!isStartAnswer){
-      isStartAnswer = true;
-    }
+    monster.display();
+    
     fill(255);//顯示題目
     rect(85,40,550,150);
     fill(0);
     textFont(chFont,20);
     text(content,100,70);
+    
+    if(!isStartAnswer && !monster.isMoving){//移動完成並且尚未開始作答
+      isStartAnswer = true;
+    }
     if(isStartAnswer){//顯示答案
       textFont(chFont,30);
       for(Answer ans:answerList){
-        if(ans.wrong){//答錯變灰
-          fill(225);
-        }else{
-          fill(255);
-        }
-        rect(ans.x,ans.y,ANSWER_W,ANSWER_H);
-        fill(0);
-        textFont(chFont,ans.fontSize);
-        text(ans.content,ans.x+ANSWER_W/2-textWidth(ans.content)/2,ans.y+15);
+        ans.display();
       }
     }
   }
@@ -69,10 +61,10 @@ class Question{
       if(isStartAnswer){
         int answer = getTouchAnswerArea();
         if(answer != -1){
+          answerList.get(answer).clicked = true;
           if(answer == correct-1){
-            stage.index += 1;
+            monster.dead();
           }else{
-            answerList.get(answer).wrong = true;
             status.HP -= 1;
           }
         }

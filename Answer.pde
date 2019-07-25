@@ -1,7 +1,9 @@
+final int ANSWER_W = 490;//答案框寬度
+final int ANSWER_H = 50;//答案框高度
 class Answer{
   int x,y;
   String content;
-  boolean wrong = false;
+  boolean clicked = false;
   int fontSize;
   
   Answer(int x,int y,String content,int fontSize){
@@ -9,5 +11,16 @@ class Answer{
     this.y = y;
     this.content = content;
     this.fontSize = fontSize;
+  }
+  void display(){
+    if(clicked){//答錯變灰
+      fill(225);
+    }else{
+      fill(255);
+    }
+    rect(x,y,ANSWER_W,ANSWER_H);
+    fill(0);
+    textFont(chFont,fontSize);
+    text(content,x+ANSWER_W/2-textWidth(content)/2,y+15);
   }
 }
