@@ -1,5 +1,6 @@
 class Question{
   String content;
+  float alpha = 0;
   Boolean isStartAnswer = false;//是否開始作答
   ArrayList<Answer> answerList;
   int correct;//正確答案代號
@@ -39,13 +40,16 @@ class Question{
   }
   void display(){
     monster.display();
-    
-    fill(255);//顯示題目
-    rect(85,40,550,150);
-    fill(0);
-    textFont(chFont,20);
-    text(content,100,70);
-    
+    if(!monster.isMoving && !monster.willDead){
+      fill(255,alpha);//顯示題目
+      rect(85,40,550,150);
+      fill(0,alpha);
+      textFont(chFont,20);
+      text(content,100,70);
+      if(alpha <255){
+        alpha += 3;
+      }
+    }
     if(!isStartAnswer && !monster.isMoving){//移動完成並且尚未開始作答
       isStartAnswer = true;
     }
