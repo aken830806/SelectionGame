@@ -7,7 +7,7 @@ class Role{
     this.y = y;
   }
   void display(){
-    //fill(255);
+    fill(255);
     rect(x,y,300,300);
   }
 }
