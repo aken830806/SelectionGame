@@ -11,24 +11,18 @@ class Question{
     this.answerList = new ArrayList<Answer>();
     int count = 0;
     for(String answer:answers){//array to arrayList
-      int fontSize = 30;
-      textFont(chFont,fontSize);
-      while(textWidth(answer) > ANSWER_W){//計算適合大小
-        fontSize -= 1;
-        textFont(chFont,fontSize);
-      }
       switch(count){
         case 0:
-          answerList.add(new Answer(40,560,answer,fontSize));
+          answerList.add(new Answer(45,535,answer,30));
           break;
         case 1:
-          answerList.add(new Answer(550,560,answer,fontSize));
+          answerList.add(new Answer(45+ANSWER_W+ANSWER_GAP,535,answer,30));
           break;
         case 2:
-          answerList.add(new Answer(40,630,answer,fontSize));
+          answerList.add(new Answer(45,535+ANSWER_H+ANSWER_GAP,answer,30));
           break;
         case 3:
-          answerList.add(new Answer(550,630,answer,fontSize));
+          answerList.add(new Answer(45+ANSWER_W+ANSWER_GAP,535+ANSWER_H+ANSWER_GAP,answer,30));
           break;
         default:
           println("Too many answers.");
